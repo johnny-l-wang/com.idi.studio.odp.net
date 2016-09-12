@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Oracle.ManagedDataAccess.Client;
 
 namespace IDI.Studio.ODP
@@ -26,16 +22,23 @@ namespace IDI.Studio.ODP
 
             using (var connection = new OracleConnection(connectionString))
             {
-                var command = new OracleCommand(sql, connection);
-                command.CommandType = CommandType.Text;
-                command.CommandTimeout = 90;
-
-                using (var reader = command.ExecuteReader(CommandBehavior.Default))
+                try
                 {
-                    while (reader.Read())
-                    {
+                    connection.Open();
 
+                    var command = new OracleCommand(sql, connection);
+                    command.CommandType = CommandType.Text;
+                    command.CommandTimeout = 90;
+
+                    using (var reader = command.ExecuteReader(CommandBehavior.Default))
+                    {
+                        list = reader.ToList<T>();
                     }
+                }
+                finally
+                {
+                    connection.Close();
+                    connection.Dispose();
                 }
             }
 
