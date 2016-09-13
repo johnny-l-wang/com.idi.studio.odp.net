@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Query>
-  <CommandText>
+  <Command>
     <![CDATA[ select account_no,affundcode,afaveragecost,lastupdate from tb_acctfundmaster where rownum<=100000 ]]>
-  </CommandText>
+  </Command>
 </Query>

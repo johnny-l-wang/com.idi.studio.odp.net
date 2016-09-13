@@ -16,9 +16,9 @@ namespace IDI.Studio.ODP
             connectionString = ConfigurationManager.ConnectionStrings["Oracle"].ToString();
         }
 
-        public List<T> Query<T>(string sql) where T : new()
+        public List<T> Query<T>(string code) where T : new()
         {
-            DatabaseExtention.GetScripts("demo");
+            string sql = DatabaseExtention.GetCommandText(code);
 
             var list = new List<T>();
 
