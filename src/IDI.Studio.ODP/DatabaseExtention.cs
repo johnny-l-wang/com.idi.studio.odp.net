@@ -23,7 +23,7 @@ namespace IDI.Studio.ODP
         {
             var instance = new T();
 
-            var properties = instance.GetType().GetProperties(BindingFlags.Public);
+            var properties = instance.GetType().GetProperties();
 
             foreach (var property in properties)
             {
