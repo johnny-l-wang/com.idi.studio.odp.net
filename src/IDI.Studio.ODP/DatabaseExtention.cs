@@ -103,5 +103,16 @@ namespace IDI.Studio.ODP
 
             return commandText;
         }
+
+        public static void SetParameters(this OracleCommand command, Dictionary<string, object> parameters)
+        {
+            if (parameters == null)
+                return;
+
+            foreach (var kvp in parameters)
+            {
+                command.Parameters.Add(new OracleParameter(kvp.Key, kvp.Value));
+            }
+        }
     }
 }

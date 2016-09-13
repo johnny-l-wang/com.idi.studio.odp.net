@@ -16,7 +16,7 @@ namespace IDI.Studio.ODP
             connectionString = ConfigurationManager.ConnectionStrings["Oracle"].ToString();
         }
 
-        public List<T> Query<T>(string code) where T : new()
+        public List<T> Query<T>(string code, Dictionary<string, object> parameters = null) where T : new()
         {
             string sql = DatabaseExtention.GetCommandText(code);
 
@@ -29,6 +29,7 @@ namespace IDI.Studio.ODP
                     connection.Open();
 
                     var command = new OracleCommand(sql, connection);
+                    command.SetParameters(parameters);
                     command.CommandType = CommandType.Text;
                     command.CommandTimeout = 90;
 
