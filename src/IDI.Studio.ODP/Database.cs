@@ -18,6 +18,8 @@ namespace IDI.Studio.ODP
 
         public List<T> Query<T>(string sql) where T : new()
         {
+            DatabaseExtention.GetScripts("demo");
+
             var list = new List<T>();
 
             using (var connection = new OracleConnection(connectionString))

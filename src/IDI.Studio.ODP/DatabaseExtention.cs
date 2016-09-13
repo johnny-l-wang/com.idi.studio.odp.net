@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml;
 using IDI.Studio.ODP.FastReflection;
 using Oracle.ManagedDataAccess.Client;
 
@@ -48,6 +49,20 @@ namespace IDI.Studio.ODP
             }
 
             return instance;
+        }
+
+        public static string GetScripts(string code)
+        {
+
+            //var document = new XmlDocument();
+            //document.Load(@"..\..\Book.xml");
+
+            //string directory = AppDomain.CurrentDomain.BaseDirectory;
+            string directory = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
+
+            Console.WriteLine("directory='{0}'", directory);
+
+            return string.Empty;
         }
     }
 }
