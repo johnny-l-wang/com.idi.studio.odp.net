@@ -35,16 +35,15 @@ namespace IDI.Studio.ODP.UnitTests
             Console.WriteLine("Execute: {0}", sql);
             Console.WriteLine("Records: {0}", list.Count);
             Console.WriteLine("Takens: {0}", watch.Elapsed);
-            Console.WriteLine("Details:");
+            //Console.WriteLine("Details:");
 
-            int i = 1;
+            //int i = 1;
 
-            foreach (var model in list)
-            {
-                Console.WriteLine("{0}:{1} {2} {3} {4}", i, model.account_no, model.affundcode, model.afaveragecost, model.lastupdate);
-                i += 1;
-            }
-
+            //foreach (var model in list)
+            //{
+            //    Console.WriteLine("{0}:{1} {2} {3} {4}", i, model.account_no, model.affundcode, model.afaveragecost, model.lastupdate);
+            //    i += 1;
+            //}
         }
     }
 }
