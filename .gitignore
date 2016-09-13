@@ -6,3 +6,5 @@
 /src/.vs/IDI.Studio.ODP/v14
 /src/IDI.Studio.ODP.UnitTests/obj/Debug
 /src/packages
+/src/IDI.Studio.ODP/bin/Debug
+/src/IDI.Studio.ODP.UnitTests/bin/Debug
