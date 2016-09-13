@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Reflection;
+﻿using System;
+using System.Collections.Generic;
 using IDI.Studio.ODP.FastReflection;
 using Oracle.ManagedDataAccess.Client;
 
@@ -28,7 +28,23 @@ namespace IDI.Studio.ODP
             foreach (var property in properties)
             {
                 var accessor = FastReflectionCaches.PropertyAccessorCache.Get(property);
-                accessor.SetValue(instance, reader[property.Name]);
+                var value = reader[property.Name];
+
+                try
+                {
+                    if (value != DBNull.Value)
+                    {
+                        accessor.SetValue(instance, value);
+                    }
+                }
+                catch (InvalidCastException)
+                {
+                    throw new InvalidCastException(string.Format("Specified cast is not valid. {0} set value {1}", property.Name, value));
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
             }
 
             return instance;
