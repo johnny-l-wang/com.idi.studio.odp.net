@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Reflection;
+using IDI.Studio.ODP.FastReflection;
 using Oracle.ManagedDataAccess.Client;
 
 namespace IDI.Studio.ODP
@@ -23,7 +21,17 @@ namespace IDI.Studio.ODP
 
         private static T ToObject<T>(this OracleDataReader reader) where T : new()
         {
-            return new T();
+            var instance = new T();
+
+            var properties = instance.GetType().GetProperties(BindingFlags.Public);
+
+            foreach (var property in properties)
+            {
+                var accessor = FastReflectionCaches.PropertyAccessorCache.Get(property);
+                accessor.SetValue(instance, reader[property.Name]);
+            }
+
+            return instance;
         }
     }
 }
