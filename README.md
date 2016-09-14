@@ -1,2 +1,2 @@
-# com.idi.studio.odp.net
+# idi.studio.odp.net
 Oracle ODP.NET Expansion Component
