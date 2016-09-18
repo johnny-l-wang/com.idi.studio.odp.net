@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -26,32 +27,30 @@ namespace IDI.Studio.ODP.UnitTests
 
             watch.Stop();
 
-            Assert.IsTrue(list.Count>0);
+            Assert.IsTrue(list.Count > 0);
 
             Console.WriteLine("Records: {0}", list.Count);
             Console.WriteLine("Takens: {0}", watch.Elapsed);
         }
 
-        //[TestMethod]
-        //public void TestQuery()
-        //{
-        //    int count = 100000;
+        [TestMethod]
+        public void TestBuildScript()
+        {
+            string sql = Database.Instance.BuildScript("select * from t", new List<string> { "t.date >= :p_from_date", "t.date <= :p_from_date" });
 
-        //    string sql = string.Format("select account_no,affundcode,afaveragecost,lastupdate from tb_acctfundmaster where rownum<={0}", count);
+            Console.WriteLine(sql);
 
-        //    var watch = new Stopwatch();
+            Assert.IsTrue(string.Equals(sql,"select * from t where t.date >= :p_from_date and t.date <= :p_from_date", StringComparison.CurrentCultureIgnoreCase));
+        }
 
-        //    watch.Start();
+        [TestMethod]
+        public void TestBuildScriptWithExistingConditions()
+        {
+            string sql = Database.Instance.BuildScript("select * from t where rownum<=100", new List<string> { "t.date >= :p_from_date", "t.date <= :p_from_date" });
 
-        //    var list = Database.Instance.Query<Model>(sql);
+            Console.WriteLine(sql);
 
-        //    watch.Stop();
-
-        //    Assert.AreEqual(count, list.Count);
-
-        //    Console.WriteLine("Execute: {0}", sql);
-        //    Console.WriteLine("Records: {0}", list.Count);
-        //    Console.WriteLine("Takens: {0}", watch.Elapsed);
-        //}
+            Assert.IsTrue(string.Equals(sql, "select * from t where rownum<=100 and t.date >= :p_from_date and t.date <= :p_from_date", StringComparison.CurrentCultureIgnoreCase));
+        }
     }
 }

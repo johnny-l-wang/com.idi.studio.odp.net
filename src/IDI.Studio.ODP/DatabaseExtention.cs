@@ -111,8 +111,13 @@ namespace IDI.Studio.ODP
 
             foreach (var kvp in parameters)
             {
-                command.Parameters.Add(new OracleParameter(kvp.Key, kvp.Value));
+                command.Parameters.Add(new OracleParameter(string.Format(":{0}",kvp.Key), kvp.Value));
             }
+        }
+
+        public static bool HasKeyword(this string sql, string keyword)
+        {
+            return sql.ToLower().Contains(keyword.ToLower());
         }
     }
 }
